@@ -265,18 +265,51 @@ This starts a pgvector Testcontainer, ingests the corpus with the real all-MiniL
 first use, about 90 MB, plus the native libraries it needs) and writes `target/eval/report.md`. It is a
 separate profile because of that download; the default `verify` uses a fake embedding model.
 
-**Not yet measured.** The recall@k and MRR table (vector only, keyword only, hybrid, hybrid + MMR), the
-abstention rates and the check that no chunk exceeds the model's input limit are produced by the command above
-and written to `target/eval/report.md`. The runner was written but not run in the final state of this
-repository, so this README contains no retrieval numbers, and no claim that hybrid beats the single methods
-is made. If it does not on this corpus, the table will show that.
+The figures below are from one run on 7 October 2026 on a 16-thread Windows desktop that was busy with other
+builds, against the working tree that became commit `a21c82a`. The full report of that run is in
+[`docs/eval-report.md`](docs/eval-report.md). The run has not been repeated since; the only later change to
+the evaluation is an added check that no chunk exceeds the model's input limit, which has never been executed.
+
+Retrieval on the 34 answerable questions:
 
 | method | recall@1 | recall@3 | recall@5 | recall@6 | MRR@10 |
 |---|---|---|---|---|---|
-| vector only | not yet measured | | | | |
-| keyword only | not yet measured | | | | |
-| hybrid (RRF) | not yet measured | | | | |
-| hybrid + MMR | not yet measured | | | | |
+| vector only (HNSW, cosine) | 0.853 | 1.000 | 1.000 | 1.000 | 0.926 |
+| keyword only (tsvector, `ts_rank_cd`) | 0.765 | 0.853 | 0.882 | 0.912 | 0.828 |
+| hybrid (RRF, k=60) | 0.882 | 0.971 | 1.000 | 1.000 | 0.924 |
+| hybrid + MMR (the passages given to the model) | 0.882 | 0.882 | 0.941 | 0.941 | 0.896 |
+
+MRR@10 by question kind:
+
+| method | paraphrase (14) | plain (15) | exact (5) |
+|---|---|---|---|
+| vector only | 0.929 | 0.933 | 0.900 |
+| keyword only | 0.654 | 0.933 | 1.000 |
+| hybrid (RRF) | 0.863 | 0.956 | 1.000 |
+
+Abstention with the similarity threshold of 0.30:
+
+| | questions | abstained | best similarity min / mean / max |
+|---|---|---|---|
+| unanswerable | 7 | 3 (43%) | 0.12 / 0.39 / 0.70 |
+| answerable | 34 | 2 (6%) | 0.26 / 0.51 / 0.79 |
+
+What the numbers say:
+
+* **Hybrid does not beat vector-only on this corpus.** It is one question better at rank 1 (0.882 against
+  0.853), one question worse at rank 3, and equal on MRR within noise. Its gain is on the identifier
+  questions (error codes, form numbers), where keyword search is perfect and vectors are not; its loss is on
+  paraphrases, where the keyword branch pulls weaker passages up. With 34 questions, one question is 0.03.
+* **MMR costs recall here.** Diversifying the six passages given to the model dropped the expected page for
+  two questions that plain hybrid had in its top five. On a corpus this small there are few near-duplicates
+  to remove, so the diversity step has little to gain.
+* **The threshold is a weak guard.** Four of the seven unanswerable questions pass it, three of them the ones
+  written to be close to the corpus in topic, and two answerable questions are wrongly refused. The similarity
+  ranges of the two groups overlap (0.26 to 0.79 against 0.12 to 0.70), so no threshold separates them; the
+  grounded prompt has to do the refusing, and that was not tested with a real model.
+
+Mean search time in that run was 250 ms per query (embedding the query plus the SQL) over 102 searches, on a
+loaded machine; treat it as an upper bound for this hardware, not a benchmark.
 
 ## Design decisions
 
@@ -320,7 +353,8 @@ is made. If it does not on this corpus, the table will show that.
 
 ## Cost and latency notes
 
-No latency, throughput or cost figure has been measured for this repository, so none is given. For reasoning
+Apart from the mean search time in the evaluation run above, no latency, throughput or cost figure has been
+measured for this repository, so none is given. For reasoning
 about cost: one question sends the system prompt plus up to six passages of at most 230 estimated tokens each,
 and retrieval itself makes no paid call (embeddings are local); follow-up rewriting adds one short model call.
 The model call dominates both cost and latency, and the stream shows the sources before the first token. The
@@ -332,8 +366,8 @@ evaluation run also prints mean search time and ingestion time.
   previous engineer; their test classes were reported passing at the time. The retrieval, answer, web, UI, eval,
   Docker and CI work added afterwards was compiled and its tests were run once before a no-execution rule
   was imposed, but the code and tests were not run again in the final state, nothing was re-run after the last
-  edits (the eval test's tokenizer check, `ModelWarmup`, this README), and the retrieval evaluation was not run
-  for the numbers here. Treat the final tree as compiled, not verified. **The Docker image and the compose file
+  edits (the eval test's tokenizer check, `ModelWarmup`, this README), and the retrieval evaluation was run
+  once, before those edits (see [Evaluation](#evaluation)). Treat the final tree as compiled, not verified. **The Docker image and the compose file
   were never successfully built and started**; the image build was interrupted. The UI was written but never
   opened in a browser.
 
