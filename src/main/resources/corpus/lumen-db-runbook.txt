@@ -1,0 +1,82 @@
+@file lumen-db-operations-runbook.pdf
+@header Lumen Database - Operations Runbook
+# Lumen Database Operations Runbook
+## 1. Cluster overview
+The Lumen production cluster consists of one primary and two replicas spread over three availability
+zones. The nodes are called lumen-a, lumen-b and lumen-c, and lumen-a is normally the primary. Replication
+to one replica is synchronous and to the other asynchronous, so a committed transaction always exists on
+at least two nodes.
+
+Applications never connect to a node directly. They connect to the connection proxy on port 6432, which
+routes them to the current primary. The database itself listens on port 5433 and that port is reachable
+only from the proxy and from the bastion host.
+
+## 2. On-call basics
+The on-call rotation changes every Tuesday at 10:00 UTC. Alerts are delivered through Beacon and must be
+acknowledged within five minutes. A severity 1 alert that is not acknowledged within 20 minutes
+escalates to the engineering manager.
+
+Write down every action taken during an incident in the incident channel as it happens. The timeline is
+needed for the review afterwards.
+@page
+## 3. Backups
+A full base backup is taken every night at 01:30 UTC. Write-ahead log segments are archived continuously
+to the bucket lumen-wal-archive, which allows point-in-time recovery to any second inside the retention
+period.
+
+Daily backups are kept for 35 days and one backup per month is kept for 12 months. A restore test is
+carried out on the first Monday of every month. The most recent test restored the 310 GB database in 47
+minutes.
+
+## 4. Monitoring thresholds
+Replication lag raises a warning at 30 seconds and pages the on-call engineer at 120 seconds. Disk usage
+raises a warning at 75 percent and pages at 88 percent.
+
+The cluster accepts at most 500 connections, and an alert pages when 450 are in use. Transactions that
+have been open for more than 15 minutes are flagged on the dashboard, because they hold back vacuum and
+cause table bloat.
+@page
+## 5. Planned failover
+A planned failover, also called a switchover, moves the primary role to a replica without losing data.
+Announce it in the db-ops channel 30 minutes beforehand. Check that the replication lag of the target is
+below five seconds.
+
+Run the command lumenctl switchover --target lumen-b from the bastion host. Writes are paused for
+roughly eight seconds while the roles change. The proxy re-points to the new primary by itself, which
+takes about 20 seconds. Finally confirm that the old primary has rejoined the cluster as a replica.
+
+## 6. Unplanned failover
+If the primary misses heartbeats for 30 seconds, the cluster manager promotes the synchronous replica
+automatically. Do not promote a node by hand unless the automatic failover has not happened after two
+minutes.
+
+After an unplanned failover the old primary may contain transactions that were never replicated. It must
+be rebuilt with lumenctl reinit before it rejoins. Never simply restart it, because two nodes that both
+believe they are primary cause a split brain.
+@page
+## 7. Common incidents
+Disk full. Delete old server logs under /var/log/lumen first; logs older than seven days are safe to
+remove. If that is not enough, grow the volume in steps of 20 percent. Never delete files from the pg_wal
+directory by hand, because the database cannot start without them.
+
+Connection exhaustion. Find the service that holds the most idle connections on the proxy dashboard. Each
+service has a pool of 40 connections. Restarting the proxy drops every client connection and is the last
+resort.
+
+Slow queries. Statements slower than 500 milliseconds are written to the slow query log. Look for a
+missing index before anything else. A query that has been running for more than 30 minutes may be
+cancelled once its owner has confirmed.
+@page
+## 8. Maintenance windows
+The weekly maintenance window is on Sunday from 02:00 to 04:00 UTC. Minor version upgrades are applied
+to the replicas first and are completed with a switchover. A major version upgrade needs a change request
+that has been approved at least 10 working days in advance.
+
+Operations that lock whole tables, such as a full vacuum, are forbidden outside the maintenance window.
+
+## 9. Access and credentials
+Production access goes through the bastion host bastion.lumen.internal with short-lived certificates that
+are valid for eight hours. Nobody holds a permanent database password.
+
+The break-glass account is stored in the vault under ops/lumen/breakglass. Every use of it triggers an
+audit review within two working days. Service passwords are rotated every 90 days by an automated job.

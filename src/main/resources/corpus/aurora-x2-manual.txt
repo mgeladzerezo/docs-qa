@@ -1,0 +1,94 @@
+@file aurora-x2-espresso-manual.pdf
+@header Aurora X2 Espresso Machine - User Manual
+# Aurora X2 Espresso Machine User Manual
+## 1. Overview
+The Aurora X2 is a semi-automatic espresso machine for home kitchens. It has a 15 bar vibration pump, a
+removable water tank that holds 1.8 litres and a thermoblock heater that is ready to brew about 40 seconds
+after the machine is switched on. A steam wand on the right side froths milk. The machine draws 1450 watts
+while heating.
+
+Keep this manual. It describes daily use, cleaning, descaling and the meaning of the error codes shown on
+the display.
+
+## 2. First use
+Wash the water tank with warm water and fill it with cold tap water up to the MAX mark. Insert the tank
+until it clicks. Before making the first coffee, run two flushing cycles without coffee in the portafilter
+to rinse the internal pipes.
+
+Dip the supplied test strip into tap water for one second to measure water hardness. The number of red
+squares gives the hardness level from 1 to 4. To store the level, hold the steam button for five seconds
+and press the brew button until the display shows the matching number.
+@page
+## 3. Brewing espresso
+Use 18 grams of finely ground coffee for a double shot and 9 grams for a single shot. Distribute the
+grounds evenly and tamp them with firm pressure of about 15 kilograms. Lock the portafilter into the
+group head and press the brew button.
+
+A double shot should yield about 36 millilitres and the extraction should take between 25 and 30 seconds.
+If the shot runs in less than 20 seconds the grind is too coarse and should be made finer. If it takes
+longer than 35 seconds, grind coarser or tamp more lightly.
+
+The default brewing temperature is 93 degrees Celsius. It can be adjusted between 88 and 96 degrees in
+steps of one degree from the settings menu.
+
+## 4. Steaming milk
+Open the steam valve for two seconds to purge condensed water from the wand. Fill the jug to one third
+with cold milk, place the tip just below the surface and open the valve fully. Stop when the milk reaches
+60 to 65 degrees Celsius, which is when the jug becomes too hot to hold comfortably.
+
+Wipe the wand with a damp cloth immediately after use and purge it again. Do not steam continuously for
+more than 90 seconds, because the pump needs time to cool.
+@page
+## 5. Cleaning
+Empty the drip tray when the red float rises above the grate. Rinse the portafilter and baskets under
+running water after each session. Once a week, backflush the group head using the blind basket and one
+cleaning tablet.
+
+The drip tray and the water tank are not dishwasher safe and must be washed by hand. The heat of a
+dishwasher warps the tank so that it no longer seals.
+
+## 6. Descaling
+Limescale builds up inside the thermoblock and must be removed regularly. The descale light blinks orange
+when descaling is due, which at hardness level 3 is after roughly 200 shots.
+
+Use Aurora descaler or dissolve 50 grams of citric acid in one litre of water. Never use vinegar: it
+attacks the silicone seals and leaves a taste that is hard to rinse out. Pour the solution into the tank,
+then hold both buttons for three seconds to start the programme. The programme takes about 25 minutes.
+
+When it has finished, rinse the system by running two full tanks of fresh water through the machine.
+@page
+## 7. Error codes
+The display shows a code when the machine detects a fault.
+
+E1 means that the water tank is empty or not seated correctly. Refill the tank and push it in until it
+clicks.
+
+E3 means that the thermoblock has overheated. Switch the machine off and let it cool for 15 minutes.
+
+E5 means that the pump is blocked, usually by limescale. Run the descaling programme.
+
+E7 means that the temperature sensor has failed. The machine cannot be repaired at home in this case;
+contact the service centre.
+
+E9 means that the portafilter is not locked into the group head. Turn the handle firmly to the right.
+
+## 8. Troubleshooting
+If the coffee tastes sour, the water is too cool or the grind is too coarse: raise the brewing temperature
+or grind finer. If it tastes bitter, lower the temperature or grind coarser. A shot without crema usually
+means the beans are stale.
+
+Water leaking around the portafilter during brewing indicates a worn group gasket. The gasket, part
+number AX2-G58, should be replaced every 12 months.
+@page
+## 9. Energy saving and standby
+The machine switches to standby 20 minutes after the last use. The delay can be changed to 60 or 120
+minutes in the settings menu. In eco mode the thermoblock is kept at 60 degrees Celsius instead of being
+switched off, which shortens the next heat-up to about 15 seconds.
+
+## 10. Warranty and service
+The Aurora X2 is covered by a warranty of two years for household use and six months for commercial use.
+Damage caused by limescale is not covered, which is why regular descaling matters. Registering the machine
+on the service portal within 30 days of purchase extends the warranty by one year.
+
+Keep the original packaging. A machine sent for repair must be shipped in it, with the water tank emptied
+and the drip tray removed.

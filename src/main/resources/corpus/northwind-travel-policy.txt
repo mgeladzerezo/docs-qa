@@ -1,0 +1,92 @@
+@file northwind-travel-policy.pdf
+@header Northwind Trading Co. - Travel and Expense Policy
+# Northwind Travel and Expense Policy
+## 1. Purpose and scope
+This policy explains how Northwind Trading pays for business travel and what employees must do to be
+reimbursed. It applies to all employees and to contractors whose agreement refers to it. The policy
+takes effect on 1 March 2025 and replaces the 2022 edition. The finance team owns the document and
+answers questions about how it should be read.
+
+Travel should only be booked when a video call cannot achieve the same result. Travellers are expected
+to spend company money as carefully as they would spend their own.
+
+## 2. Booking travel
+All flights, trains and hotels are booked through the Compass travel portal. Flights must be booked at
+least 14 days before departure, because fares rise sharply in the last two weeks. Bookings made outside
+the portal are reimbursed only if the portal was unavailable and a screenshot proves it.
+
+Economy class is the standard for flights shorter than six hours. Premium economy may be booked for
+flights longer than six hours. Business class requires the approval of a vice president and is normally
+granted only for overnight flights followed by a working day.
+
+For journeys of less than 400 km the train is preferred over flying, even if the ticket costs more,
+because it reduces emissions and the time is usable for work.
+@page
+## 3. Accommodation
+Hotels are booked through the portal at the negotiated rate where one exists. The nightly hotel limit is
+140 EUR in Tier 2 cities and 210 EUR in Tier 1 cities. The Tier 1 cities are London, Zurich, New York and
+Singapore. The limit includes breakfast and local taxes.
+
+A room above the limit requires written approval from the department head before the trip starts.
+Approval given after the stay is not accepted. Employees who stay with friends or family instead of a
+hotel may claim a gift allowance of 30 EUR per night without a receipt.
+
+## 4. Meals and per diem
+Meals are covered by a daily per diem instead of individual receipts. The per diem is 55 EUR for domestic
+trips and 70 EUR for international trips. When a meal is provided by a host or included in a conference
+fee, the per diem is reduced: by 20 percent for breakfast and by 30 percent each for lunch and dinner.
+
+Alcohol is not reimbursed under any circumstances, including when it is part of a set menu. Client
+entertainment is allowed up to 90 EUR per person, and the claim must list the names and companies of
+everyone who attended.
+@page
+## 5. Ground transport
+Public transport is the default way to move around a city. Taxis and ride-hailing services may be used
+only when public transport is impractical, when carrying heavy equipment, or after 22:00.
+
+Employees who use their own car are paid a mileage rate of 0.42 EUR per kilometre, up to 500 km per trip.
+Longer distances must be covered by train or rental car. Rental cars are booked in the compact class, and
+the tank must be refilled before the car is returned, since refuelling charges from rental companies are
+not reimbursed. Parking fines and speeding tickets are never reimbursed.
+
+## 6. Submitting expenses
+Expense reports are submitted in the Ledgerly app and are due within 30 days of the return date. Reports
+submitted later need the approval of the finance director. A receipt is required for every item above
+25 EUR. A photograph of the receipt is sufficient as long as the date, the amount and the vendor are
+legible.
+
+If a receipt is lost, the traveller completes form TR-4, the lost receipt declaration. The form may be
+used at most twice per calendar year. Approved amounts are paid with the next payroll run, which usually
+means within 10 working days of approval.
+@page
+## 7. Approvals
+Every trip must be approved before anything is booked. Trips with a total estimated cost below 1,500 EUR
+are approved by the line manager. Trips above 1,500 EUR are approved by the department head. Trips that
+cost more than 5,000 EUR, and all intercontinental trips regardless of cost, additionally need the
+approval of the office of the chief financial officer.
+
+The estimate includes transport, accommodation, per diem and any conference fees. Splitting one trip
+into several requests to stay below a threshold is treated as a violation of this policy.
+
+## 8. Corporate card
+A corporate card is issued to employees who travel more than six times a year. The card has a monthly
+limit of 3,000 EUR. It may not be used for personal purchases, even if the employee intends to repay
+them. Cash advances taken with the card may not exceed 200 EUR per trip.
+
+A lost or stolen card must be reported to the bank hotline within 24 hours and to the finance team on
+the next working day. The employee is not liable for fraudulent transactions that are reported within
+this period.
+@page
+## 9. Travel insurance and safety
+Employees on approved trips are covered by the group travel insurance held with Helvia Assurance under
+policy number NW-88417. The cover includes medical emergencies, baggage up to 2,000 EUR and the
+cancellation of a trip for reasons outside the traveller's control. The emergency assistance line is
+staffed 24 hours a day and its number is printed on the back of the corporate card.
+
+Travel to destinations rated as high risk requires a security briefing at least five working days before
+departure. The briefing is arranged by the facilities team.
+
+## 10. Exceptions and violations
+Exceptions to this policy are requested through the finance service desk and must include a business
+justification. Repeated violations may lead to the withdrawal of the corporate card. Knowingly false
+claims are a disciplinary matter. The policy is reviewed every two years.

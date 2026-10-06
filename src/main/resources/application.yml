@@ -1,0 +1,83 @@
+server:
+  port: 8209
+  shutdown: graceful
+
+spring:
+  application:
+    name: docs-qa
+  datasource:
+    url: ${DOCSQA_DB_URL:jdbc:postgresql://localhost:5549/docsqa}
+    username: ${DOCSQA_DB_USER:docsqa}
+    password: ${DOCSQA_DB_PASSWORD:docsqa}
+    hikari:
+      maximum-pool-size: 10
+  servlet:
+    multipart:
+      max-file-size: 25MB
+      max-request-size: 26MB
+  threads:
+    virtual:
+      enabled: true
+  mvc:
+    async:
+      request-timeout: 5m
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+docsqa:
+  storage-dir: ${DOCSQA_STORAGE_DIR:./data/uploads}
+  upload:
+    max-file-size: 20MB
+    max-pages: 300
+  ingestion:
+    workers: 2
+    poll-interval: 1s
+    lease: 2m
+    max-attempts: 3
+    retry-backoff: 10s
+    embedding-batch-size: 16
+    max-concurrent-embedding-batches: 1
+    max-backlog: 25
+    min-chars-per-page: 20
+  chunking:
+    target-tokens: 180
+    max-tokens: 230
+    overlap-tokens: 40
+    min-tokens: 40
+  embedding:
+    provider: onnx
+    model-name: all-MiniLM-L6-v2
+    dimension: 384
+    cache-dir: ${DOCSQA_MODEL_CACHE_DIR:./data/models}
+    max-input-tokens: 256
+    model-uri: https://media.githubusercontent.com/media/spring-projects/spring-ai/refs/heads/main/models/spring-ai-transformers/src/main/resources/onnx/all-MiniLM-L6-v2/model.onnx
+    tokenizer-uri: https://raw.githubusercontent.com/spring-projects/spring-ai/main/models/spring-ai-transformers/src/main/resources/onnx/all-MiniLM-L6-v2/tokenizer.json
+  retrieval:
+    candidates: 30
+    fused-limit: 20
+    final-k: 6
+    rrf-k: 60
+    mmr-lambda: 0.7
+    min-similarity: 0.30
+    ef-search: 100
+  answer:
+    model: ${DOCSQA_CHAT_MODEL:claude-sonnet-5-5}
+    max-tokens: 4096
+    effort: low
+    max-question-chars: 1000
+    max-history-turns: 6
+  anthropic:
+    api-key: ${ANTHROPIC_API_KEY:}
+  rate-limit:
+    chat-per-minute: 30
+    upload-per-minute: 20
+  sample-corpus:
+    preload: true
