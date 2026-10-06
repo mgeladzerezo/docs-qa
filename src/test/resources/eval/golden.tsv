@@ -1,0 +1,43 @@
+# kind<TAB>question<TAB>file<TAB>pages. Pages are the pages of the generated PDF that contain the answer. An empty file means the corpus has no answer.
+# kind: paraphrase = little word overlap with the source, exact = hinges on an identifier or rare term, plain = ordinary wording, none = unanswerable
+paraphrase	How much water fits into the tank?	aurora-x2-espresso-manual.pdf	1
+plain	How long until the machine is ready to brew after I switch it on?	aurora-x2-espresso-manual.pdf	1
+plain	How many grams of coffee should go into a double shot?	aurora-x2-espresso-manual.pdf	2
+plain	Between which temperatures can the brewing temperature be set?	aurora-x2-espresso-manual.pdf	2
+paraphrase	What should I use to remove limescale, and what must I never use?	aurora-x2-espresso-manual.pdf	3
+exact	What does error code E5 mean?	aurora-x2-espresso-manual.pdf	4
+exact	How often has the group gasket AX2-G58 to be replaced?	aurora-x2-espresso-manual.pdf	4
+paraphrase	Can the water tank go in the dishwasher?	aurora-x2-espresso-manual.pdf	3
+paraphrase	Is it possible to get a longer guarantee by signing up the machine online?	aurora-x2-espresso-manual.pdf	5
+plain	How long is the Kestrel River Trail?	kestrel-river-trail-guide.pdf	1
+paraphrase	What do I need to stay overnight in the reserve and what does it cost?	kestrel-river-trail-guide.pdf	3
+paraphrase	Will my phone work in the middle of the route?	kestrel-river-trail-guide.pdf	4
+plain	What is the number for mountain rescue?	kestrel-river-trail-guide.pdf	4
+plain	When does the last bus leave Port Merrow?	kestrel-river-trail-guide.pdf	5
+paraphrase	Which day of the walk is the toughest?	kestrel-river-trail-guide.pdf	2
+paraphrase	Can I take my dog with me in spring?	kestrel-river-trail-guide.pdf	3
+plain	Where can I find safe drinking water on the trail?	kestrel-river-trail-guide.pdf	4
+paraphrase	Which port do applications use to reach the database?	lumen-db-operations-runbook.pdf	1
+plain	How long are the nightly backups kept?	lumen-db-operations-runbook.pdf	2
+plain	At what replication lag is the on-call engineer paged?	lumen-db-operations-runbook.pdf	2
+exact	Which command performs a planned switchover?	lumen-db-operations-runbook.pdf	3
+paraphrase	What must I do with the old primary after an automatic failover?	lumen-db-operations-runbook.pdf	3
+plain	What can I delete when the disk is full?	lumen-db-operations-runbook.pdf	4
+plain	When is the weekly maintenance window?	lumen-db-operations-runbook.pdf	5
+paraphrase	How do engineers get into production and which password do they use?	lumen-db-operations-runbook.pdf	5
+plain	How quickly must an alert be acknowledged?	lumen-db-operations-runbook.pdf	2
+plain	What is the nightly hotel limit in Zurich?	northwind-travel-policy.pdf	2
+paraphrase	Will the company pay for wine with dinner?	northwind-travel-policy.pdf	2
+plain	When is a receipt required?	northwind-travel-policy.pdf	3
+exact	What is form TR-4 used for?	northwind-travel-policy.pdf	3
+paraphrase	Who has to sign off on a trip costing 7,000 EUR?	northwind-travel-policy.pdf	4
+plain	How much is the mileage rate when I use my own car?	northwind-travel-policy.pdf	3
+paraphrase	What do I do if my company card is stolen?	northwind-travel-policy.pdf	4
+exact	Which insurer covers business trips, and what is the policy number?	northwind-travel-policy.pdf	5
+none	What is the capital of Australia?		
+none	How many calories are in a cappuccino made with the Aurora X2?		
+none	Does the Lumen cluster support MySQL replication?		
+none	How do I reset my password in the Ledgerly app?		
+none	What is the weather forecast for Port Merrow next week?		
+none	How much does a bunk at Corvin Hut cost per night?		
+none	Who won the football world cup in 2018?		

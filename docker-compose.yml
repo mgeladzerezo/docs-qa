@@ -1,0 +1,47 @@
+# One command: docker compose up --build   then open http://localhost:8209
+# Without ANTHROPIC_API_KEY the service answers extractively (quoted passages). With it, answers are
+# written by the configured Claude model.
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: docsqa
+      POSTGRES_USER: docsqa
+      POSTGRES_PASSWORD: docsqa
+    ports:
+      - "5549:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U docsqa -d docsqa"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  docs-qa:
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8209:8209"
+    environment:
+      DOCSQA_DB_URL: jdbc:postgresql://postgres:5432/docsqa
+      DOCSQA_DB_USER: docsqa
+      DOCSQA_DB_PASSWORD: docsqa
+      # Passed through from the shell or an .env file; empty selects the extractive mode.
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      DOCSQA_CHAT_MODEL: ${DOCSQA_CHAT_MODEL:-claude-sonnet-5-5}
+    volumes:
+      - uploads:/data
+    healthcheck:
+      # The JRE image has no curl; bash's /dev/tcp is enough to read the health document.
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/localhost/8209 && printf 'GET /actuator/health HTTP/1.0\\r\\n\\r\\n' >&3 && grep -q '\"status\":\"UP\"' <&3"]
+      interval: 5s
+      timeout: 3s
+      retries: 40
+      start_period: 30s
+
+volumes:
+  pgdata:
+  uploads:

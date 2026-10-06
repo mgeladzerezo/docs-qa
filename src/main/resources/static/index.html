@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Docs QA</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232563eb'/%3E%3Cpath d='M9 8h10l4 4v12H9z' fill='none' stroke='white' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M12 16h8M12 20h6' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="app.css">
+  <script>
+    // Applied before first paint so a stored theme does not flash.
+    try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) { /* storage unavailable */ }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <h1>Docs QA</h1>
+    <span id="mode-badge" class="badge" hidden></span>
+    <span class="spacer"></span>
+    <label class="switch" title="Show every retrieved chunk with its vector rank, keyword rank and fused score">
+      <input type="checkbox" id="debug-toggle"> <span>Retrieval debug</span>
+    </label>
+    <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch between light and dark theme">Theme</button>
+  </header>
+
+  <main class="layout">
+    <section class="panel" id="library-panel" aria-labelledby="library-title">
+      <h2 id="library-title">Library</h2>
+      <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Upload PDF files">
+        <strong>Drop PDFs here</strong>
+        <span>or click to choose files</span>
+        <input id="file-input" type="file" accept="application/pdf,.pdf" multiple hidden>
+      </div>
+      <p id="upload-message" class="note" role="status"></p>
+      <ul id="documents" class="documents"></ul>
+      <p id="documents-empty" class="empty" hidden>No documents yet. Upload a PDF to start.</p>
+    </section>
+
+    <section class="panel chat" id="chat-panel" aria-labelledby="chat-title">
+      <h2 id="chat-title">Ask</h2>
+      <div id="messages" class="messages" aria-live="polite">
+        <div id="chat-empty" class="empty">
+          <p>Ask a question about the documents in the library.</p>
+          <ul class="examples">
+            <li><button type="button" class="example">What does error code E5 mean?</button></li>
+            <li><button type="button" class="example">What is the nightly hotel limit in Zurich?</button></li>
+            <li><button type="button" class="example">Which command performs a planned switchover?</button></li>
+          </ul>
+        </div>
+      </div>
+      <p id="scope-note" class="note" hidden></p>
+      <form id="chat-form" class="chat-form">
+        <textarea id="question" rows="2" maxlength="1000" placeholder="Ask a question" aria-label="Question" required></textarea>
+        <button id="send" type="submit">Ask</button>
+      </form>
+    </section>
+
+    <section class="panel source" id="source-panel" aria-labelledby="source-title">
+      <h2 id="source-title">Source</h2>
+      <div id="source-empty" class="empty">Select a citation to see the passage in its page.</div>
+      <div id="source-view" hidden>
+        <div class="source-head">
+          <strong id="source-name"></strong>
+          <span id="source-page" class="badge"></span>
+          <a id="source-pdf" target="_blank" rel="noopener">Open PDF</a>
+        </div>
+        <p id="source-heading" class="note"></p>
+        <pre id="source-text" class="page-text"></pre>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
