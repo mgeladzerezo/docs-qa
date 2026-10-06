@@ -3,7 +3,9 @@ package io.github.mgeladzerezo.docsqa.eval;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.mgeladzerezo.docsqa.config.AppProperties;
+import ai.djl.huggingface.tokenizers.HuggingFaceTokenizer;
 import io.github.mgeladzerezo.docsqa.document.DocumentService;
+import io.github.mgeladzerezo.docsqa.ingest.Chunk;
 import io.github.mgeladzerezo.docsqa.retrieval.RetrievalService;
 import io.github.mgeladzerezo.docsqa.retrieval.RetrievedChunk;
 import io.github.mgeladzerezo.docsqa.retrieval.SearchRepository.Filter;
@@ -99,6 +101,7 @@ class RetrievalEvaluationTest extends PostgresTest {
         SampleLibrary.ingest(documents, Duration.ofMinutes(10));
         long ingestMillis = (System.nanoTime() - ingestStart) / 1_000_000;
         int chunkCount = jdbc.sql("SELECT count(*) FROM chunk").query(Integer.class).single();
+        int longestChunk = longestChunkInModelTokens();
 
         List<Golden> golden = loadGolden();
         List<Golden> answerable = golden.stream().filter(Golden::answerable).toList();
@@ -131,6 +134,8 @@ class RetrievalEvaluationTest extends PostgresTest {
         StringBuilder report = new StringBuilder();
         report.append("Corpus: %d PDFs, %d chunks (ingested in %.1f s). Golden set: %d answerable, %d unanswerable questions.\n\n"
                 .formatted(documents.list().size(), chunkCount, ingestMillis / 1000.0, answerable.size(), unanswerable.size()));
+        report.append("Longest chunk as embedded: %d word pieces by the real tokenizer (the model input limit is %d).\n\n"
+                .formatted(longestChunk, properties.embedding().maxInputTokens()));
         report.append("Retrieval on the %d answerable questions (a chunk is relevant if it contains an expected page)\n\n".formatted(answerable.size()));
         report.append(table(byMethod));
         report.append("\nMRR@10 by question kind\n\n").append(kindTable(byMethod, answerable));
@@ -149,6 +154,19 @@ class RetrievalEvaluationTest extends PostgresTest {
 
         // Sanity floors only: a broken pipeline would fall far below them, a real model is far above.
         assertThat(mean(hybrid, o -> o.recallAt(5))).isGreaterThan(0.6);
+        assertThat(longestChunk).as("no chunk may be truncated by the embedding model").isLessThanOrEqualTo(properties.embedding().maxInputTokens());
+    }
+
+    /** Counts the word pieces of every stored chunk, as embedded, with the tokenizer the model really uses. */
+    private int longestChunkInModelTokens() throws IOException {
+        Path tokenizerFile;
+        try (var files = Files.walk(properties.embedding().cacheDir())) {
+            tokenizerFile = files.filter(path -> path.getFileName().toString().equals("tokenizer.json")).findFirst().orElseThrow();
+        }
+        try (HuggingFaceTokenizer tokenizer = HuggingFaceTokenizer.newInstance(tokenizerFile)) {
+            return jdbc.sql("SELECT heading, content FROM chunk").query((rs, row) -> Chunk.embeddingText(rs.getString(1), rs.getString(2)))
+                    .list().stream().mapToInt(text -> tokenizer.encode(text).getTokens().length).max().orElse(0);
+        }
     }
 
     private String abstention(List<Golden> answerable, List<Golden> unanswerable) {
