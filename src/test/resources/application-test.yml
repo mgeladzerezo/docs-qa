@@ -1,0 +1,20 @@
+# Settings shared by every Spring test: no real models, no sample preload, no API key.
+docsqa:
+  storage-dir: target/test-storage
+  embedding:
+    provider: fake
+    model-name: test-hashing-384
+  anthropic:
+    api-key: ""
+  sample-corpus:
+    preload: false
+  ingestion:
+    poll-interval: 100ms
+    retry-backoff: 200ms
+  rate-limit:
+    chat-per-minute: 10000
+    upload-per-minute: 10000
+logging:
+  level:
+    org.apache.pdfbox: ERROR
+    org.apache.fontbox: ERROR

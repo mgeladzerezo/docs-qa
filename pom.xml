@@ -109,6 +109,13 @@
             <artifactId>testcontainers-junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <!-- Testcontainers' Docker client needs it at runtime; with this dependency set it is not
+                 pulled in transitively, which fails as NoClassDefFoundError: BooleanUtils. -->
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
