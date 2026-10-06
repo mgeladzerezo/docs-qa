@@ -102,8 +102,10 @@ public record AppProperties(
      * @param effort           Anthropic {@code output_config.effort}: low, medium, high, xhigh or max
      * @param maxQuestionChars longer questions are rejected with 400
      * @param maxHistoryTurns  most recent conversation turns considered when rewriting a follow-up
+     * @param streamTimeout    how long one SSE answer may take before the connection is closed
      */
-    public record Answer(String model, int maxTokens, String effort, int maxQuestionChars, int maxHistoryTurns) {
+    public record Answer(
+            String model, int maxTokens, String effort, int maxQuestionChars, int maxHistoryTurns, Duration streamTimeout) {
     }
 
     /** @param apiKey empty means no-key mode: answers are extractive and no chat model bean exists */

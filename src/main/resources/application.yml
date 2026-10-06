@@ -74,6 +74,7 @@ docsqa:
     effort: low
     max-question-chars: 1000
     max-history-turns: 6
+    stream-timeout: 3m
   anthropic:
     api-key: ${ANTHROPIC_API_KEY:}
   rate-limit:
