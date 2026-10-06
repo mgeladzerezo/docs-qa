@@ -57,6 +57,11 @@ public class EmbeddingGateway {
         return checked(List.of(model.embed(text)), 1).getFirst();
     }
 
+    /** Embeds a few short texts at query time (sentence ranking); like a query, it does not wait for a permit. */
+    public List<float[]> embedTexts(List<String> texts) {
+        return checked(model.embed(texts), texts.size());
+    }
+
     private List<float[]> checked(List<float[]> vectors, int expectedCount) {
         if (vectors.size() != expectedCount) {
             throw new IllegalStateException("Embedding model %s returned %d vectors for %d inputs"

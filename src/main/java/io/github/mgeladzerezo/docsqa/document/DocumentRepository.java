@@ -103,6 +103,21 @@ public class DocumentRepository {
                 .optional();
     }
 
+    /** The number of the page whose text contains the given offset of the document text. */
+    public int pageAt(UUID documentId, int offset) {
+        return jdbc.sql("""
+                        SELECT page_number FROM document_page
+                        WHERE document_id = :id AND char_start <= :offset AND content <> ''
+                        ORDER BY char_start DESC
+                        LIMIT 1
+                        """)
+                .param("id", documentId)
+                .param("offset", offset)
+                .query(Integer.class)
+                .optional()
+                .orElse(1);
+    }
+
     /** The distinct (model, dimension) pairs present in the library, used to refuse a mixed corpus. */
     public List<EmbeddingProfile> embeddingProfiles() {
         return jdbc.sql("SELECT DISTINCT embedding_model, embedding_dimension FROM document ORDER BY 1, 2")
