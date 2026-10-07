@@ -9,6 +9,8 @@ hand-made SQL statement). With no API key the service still runs and answers ext
 
 [![CI](https://github.com/mgeladzerezo/docs-qa/actions/workflows/ci.yml/badge.svg)](https://github.com/mgeladzerezo/docs-qa/actions/workflows/ci.yml)
 
+> **CI result.** On 7 October 2026 the workflow ran the complete suite on GitHub Actions (Ubuntu, Docker available) and it passed: 98 tests (the model-dependent evaluation profile excluded), 0 failures ([run 37606269661](https://github.com/mgeladzerezo/docs-qa/actions/runs/37606269661)). The verification notes further down describe what had been run on this machine before that and are kept for the record.
+
 Stack: Java 25, Spring Boot 4.1.1, Spring AI 2.0.1, PostgreSQL 16 + pgvector, Flyway, Apache PDFBox 3.
 
 **Not exercised: the live Anthropic path.** No paid API was called while building this and no API key was
