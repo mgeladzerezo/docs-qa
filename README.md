@@ -362,12 +362,12 @@ evaluation run also prints mean search time and ingestion time.
 
 ## Known limitations
 
-* **What was run and what was not.** The ingestion and chunking commits (`0a5931f`, `ab16e61`) were run by the
-  previous engineer; their test classes were reported passing at the time. The retrieval, answer, web, UI, eval,
-  Docker and CI work added afterwards was compiled and its tests were run once before a no-execution rule
-  was imposed, but the code and tests were not run again in the final state, nothing was re-run after the last
-  edits (the eval test's tokenizer check, `ModelWarmup`, this README), and the retrieval evaluation was run
-  once, before those edits (see [Evaluation](#evaluation)). Treat the final tree as compiled, not verified. **The Docker image and the compose file
+* **What was run and what was not.** The test classes of the ingestion and chunking commits (`0a5931f`, `ab16e61`)
+  passed when those commits were made. The retrieval, answer, web, UI, eval, Docker and CI work added
+  afterwards was compiled and its tests were run once, but not again in the final state: nothing was re-run
+  after the last edits (the eval test's tokenizer check, `ModelWarmup`, this README), and the retrieval
+  evaluation was run once, before those edits (see [Evaluation](#evaluation)). Treat the final tree as
+  compiled, not verified. **The Docker image and the compose file
   were never successfully built and started**; the image build was interrupted. The UI was written but never
   opened in a browser.
 
